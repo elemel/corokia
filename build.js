@@ -11,7 +11,8 @@ const fontStream = new SVGIcons2SVGFontStream({
   fontName: FONT_NAME,
   fontHeight: 1024,
   normalize: false,
-  descent: 128
+  descent: 128,
+  prependUnicode: false
 });
 
 let svgFontData = '';
@@ -28,23 +29,47 @@ fontStream
     console.log(`Created ${FILE_NAME}.ttf`);
   });
 
-// Auto-load all SVGs in glyphs/ (including u0020-space.svg)
 const files = fs.readdirSync(GLYPHS_DIR).filter(f => f.endsWith('.svg'));
+const existingCodes = new Set();
 
+// Pass 1: Add every SVG file in glyphs/ to its exact uXXXX code point
+for (const file of files) {
+  const match = file.match(/^u([0-9a-fA-F]{4,6})-(.+)\.svg$/);
+  if (!match) continue;
+
+  const codePoint = parseInt(match[1], 16);
+  const char = String.fromCodePoint(codePoint);
+  const codeHex = codePoint.toString(16).padStart(4, '0');
+
+  existingCodes.add(codePoint);
+
+  const glyph = fs.createReadStream(path.join(GLYPHS_DIR, file));
+  glyph.metadata = {
+    unicode: [char],
+    name: `uni${codeHex}`
+  };
+  fontStream.write(glyph);
+}
+
+// Pass 2: For any uppercase A-Z / ÅÄÖ whose lowercase SVG doesn't exist yet, reuse uppercase
 for (const file of files) {
   const match = file.match(/^u([0-9a-fA-F]{4,6})-(.+)\.svg$/);
   if (!match) continue;
 
   const char = String.fromCodePoint(parseInt(match[1], 16));
-  const glyphName = match[2];
+  if (!/^[A-ZÅÄÖ]$/.test(char)) continue;
 
-  // Map A-Z (and Å, Ä, Ö) to both uppercase and lowercase
-  const unicodes = /^[A-ZÅÄÖ]$/.test(char) ? [char, char.toLowerCase()] : [char];
+  const lowerChar = char.toLowerCase();
+  const lowerCode = lowerChar.codePointAt(0);
+  if (existingCodes.has(lowerCode)) continue;
 
+  const codeHex = lowerCode.toString(16).padStart(4, '0');
   const glyph = fs.createReadStream(path.join(GLYPHS_DIR, file));
-  glyph.metadata = { unicode: unicodes, name: glyphName };
+  glyph.metadata = {
+    unicode: [lowerChar],
+    name: `uni${codeHex}`
+  };
   fontStream.write(glyph);
 }
 
 fontStream.end();
-
