@@ -53,6 +53,23 @@
      id="defs1">
     <inkscape:path-effect
        effect="fillet_chamfer"
+       id="path-effect69"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,64,0,1 @ F,0,0,1,0,64,0,1 @ F,0,0,1,0,64,0,1 @ F,0,0,1,0,64,0,1 @ F,0,0,1,0,64,0,1 @ F,0,0,1,0,64,0,1 @ F,0,0,1,0,64,0,1 @ F,0,0,1,0,64,0,1 | F,0,0,1,0,64,0,1 @ F,0,0,1,0,64,0,1 @ F,0,0,1,0,64,0,1 @ F,0,0,1,0,64,0,1"
+       radius="64"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+    <inkscape:path-effect
+       effect="fillet_chamfer"
        id="path-effect95"
        is_visible="true"
        lpeversion="1"
@@ -1548,8 +1565,8 @@
      id="layer1">
     <path
        style="baseline-shift:baseline;display:inline;overflow:visible;opacity:1;vector-effect:none;stroke-linecap:square;enable-background:accumulate;stop-color:#000000;stop-opacity:1"
-       d="m 64,384 v 768 a 64,64 45 0 0 64,64 64,64 135 0 0 64,-64 v -128 a 64,64 135 0 1 64,-64 h 256 a 64,64 45 0 1 64,64 v 128 a 64,64 45 0 0 64,64 64,64 135 0 0 64,-64 l 0,-768 A 64,64 45 0 0 640,320 H 128 a 64,64 135 0 0 -64,64 z m 192,64 256,0 a 64,64 45 0 1 64,64 v 256 a 64,64 135 0 1 -64,64 H 256 A 64,64 45 0 1 192,768 V 512 a 64,64 135 0 1 64,-64 z"
-       id="path94"
+       d="m 64,384 v 768 a 64,64 45 0 0 64,64 64,64 135 0 0 64,-64 V 768 a 64,64 135 0 1 64,-64 l 256,0 a 64,64 45 0 1 64,64 v 384 a 64,64 45 0 0 64,64 64,64 135 0 0 64,-64 l 0,-768 A 64,64 45 0 0 640,320 H 128 a 64,64 135 0 0 -64,64 z m 192,64 256,0 a 64,64 45 0 1 64,64 64,64 135 0 1 -64,64 H 256 a 64,64 45 0 1 -64,-64 64,64 135 0 1 64,-64 z"
+       id="path2"
        sodipodi:nodetypes="cccccccccccccc" />
   </g>
 </svg>
